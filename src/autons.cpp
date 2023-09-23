@@ -75,15 +75,46 @@ void drive_example() {
   // The second parameter is max speed the robot will drive at
   // The third parameter is a boolean (true or false) for enabling/disabling a slew at the start of drive motions
   // for slew, only enable it when the drive distance is greater then the slew distance + a few inches
-
-
-  chassis.set_drive_pid(24, DRIVE_SPEED, true);
+  setCataMotors(75);
+  pros::delay(1100);
+  setCataMotors(0);
+  chassis.set_drive_pid(6, DRIVE_SPEED);
   chassis.wait_drive();
 
-  chassis.set_drive_pid(-12, DRIVE_SPEED);
+  chassis.set_turn_pid(-90, TURN_SPEED);
   chassis.wait_drive();
 
-  chassis.set_drive_pid(-12, DRIVE_SPEED);
+  chassis.set_drive_pid(24, DRIVE_SPEED);
+  chassis.wait_drive();
+
+  chassis.set_turn_pid(-180 , TURN_SPEED);
+  chassis.wait_drive();
+
+  chassis.set_drive_pid(14, DRIVE_SPEED);
+  chassis.wait_drive();
+
+  chassis.set_turn_pid(-270, TURN_SPEED);
+  chassis.wait_drive();
+
+  wingsOn();
+
+  chassis.set_drive_pid(22, DRIVE_SPEED);
+  chassis.wait_drive();
+
+  wingsOff();
+
+  chassis.set_turn_pid(-325, TURN_SPEED);
+  chassis.wait_drive();
+
+  chassis.set_drive_pid(33, DRIVE_SPEED);
+  chassis.wait_drive();
+
+  chassis.set_turn_pid(-330, TURN_SPEED);
+  chassis.wait_drive();
+
+  wingsOn();
+
+  chassis.set_drive_pid(5, DRIVE_SPEED);
   chassis.wait_drive();
 }
 

@@ -1,10 +1,8 @@
 #include "main.h"
 
 // MOTORS
-extern pros::Motor intake_a;
-extern pros::Motor intake_b;
-extern pros::Motor puncher_a;
-extern pros::Motor puncher_b;
+extern pros::Motor cata_a;
+extern pros::Motor cata_b;
 
 // CONTROLLER
 extern pros::Controller controller;
@@ -12,6 +10,8 @@ extern pros::Controller controller;
 // SENSORS
 extern pros::Imu inertial;
 // PNUEMATICS
+extern pros::ADIDigitalOut wings;
+extern pros::ADIDigitalOut doinker;
 
 // SHIFT
 bool shift();

@@ -39,7 +39,7 @@
 /**
  * You should add more #includes here
  */
-//#include "okapi/api.hpp"
+#include "okapi/api.hpp"
 //#include "pros/api_legacy.h"
 #include "EZ-Template/api.hpp"
 #include "autons.hpp"
@@ -78,9 +78,9 @@ void opcontrol(void);
 #endif
 
 #ifdef __cplusplus
-#include "subsystemHeaders/intake.hpp"
 #include "subsystemHeaders/globals.hpp"
-#include "subsystemHeaders/puncher.hpp"
+#include "subsystemHeaders/cata.hpp"
+#include "subsystemHeaders/wings.hpp"
 /**
  * You can add C++-only headers here
  */
