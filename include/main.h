@@ -81,6 +81,7 @@ void opcontrol(void);
 #include "subsystemHeaders/globals.hpp"
 #include "subsystemHeaders/cata.hpp"
 #include "subsystemHeaders/wings.hpp"
+#include "subsystemHeaders/lift.hpp"
 /**
  * You can add C++-only headers here
  */
