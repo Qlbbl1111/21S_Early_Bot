@@ -14,6 +14,3 @@ extern pros::Imu inertial;
 // PNUEMATICS
 extern pros::ADIDigitalOut wings;
 extern pros::ADIDigitalOut liftLock;
-
-// SHIFT
-bool shift();

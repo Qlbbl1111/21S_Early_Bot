@@ -5,12 +5,14 @@ bool latchLock = false;
 okapi::ControllerButton lockButton(okapi::ControllerDigital::X);
 
 void setLift() {
-    if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_L1) && !shift()) {
+  liftMotor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+    if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
         liftMotor = 75;
-    } else if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_L1) && shift()) {
+    } else if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) {
         liftMotor = -75;
-    }
-}
+    } else {
+        liftMotor = 0;
+}}
 
 void lock() {
     if (toggleLock) {

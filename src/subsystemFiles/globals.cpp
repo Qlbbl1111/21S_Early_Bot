@@ -13,8 +13,3 @@ pros::Imu inertial(21);
 // PNUEMATICS
 pros::ADIDigitalOut wings('B');
 pros::ADIDigitalOut liftLock('A');
-
-// SHIFT
-bool shift() {
-  return controller.get_digital(pros::E_CONTROLLER_DIGITAL_R1);
-}
