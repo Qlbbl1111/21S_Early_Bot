@@ -148,10 +148,10 @@ void defense() {
   chassis.set_drive_pid(18, DRIVE_SPEED);
   chassis.wait_drive();
 
-  chassis.set_turn_pid(-315, TURN_SPEED);
+  chassis.set_turn_pid(-300, TURN_SPEED);
   chassis.wait_drive();
 
-  chassis.set_drive_pid(31, DRIVE_SPEED);
+  chassis.set_drive_pid(28, DRIVE_SPEED);
   chassis.wait_drive();
 
   //wings.set_value(true);
