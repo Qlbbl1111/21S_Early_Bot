@@ -11,11 +11,11 @@
 Drive chassis (
   // Left Chassis Ports (negative port will reverse it!)
   //   the first port is the sensored port (when trackers are not used!)
-  {-12, -13, -11}
+  {-19, -18, -20}
 
   // Right Chassis Ports (negative port will reverse it!)
   //   the first port is the sensored port (when trackers are not used!)
-  ,{19, 18, 20}
+  ,{12, 13, 11}
 
   // IMU Port
   ,21
@@ -49,9 +49,69 @@ Drive chassis (
   // 3 Wire Port Expander Smart Port
   // ,1
 );
+int auton = 0;
+void autonLightsDown() {
+  ez::as::page_down();
+  auton = auton -1;
 
+  switch(auton) {
+      case -1:
+      //underflows to skills
+          setLights(0x9500ff);
+          auton = 3;
+          break;
+      case 0:
+      //nothing
+          leftDriveLights.gradient(0xFF0000, 0xFF0005, 0, 0, false, true);
+          rightDriveLights.gradient(0xFF0000, 0xFF0005, 0, 0, false, true);
+          break;
+      case 1:
+      //offense
+          setLights(0x00ffe1);
+          break;
+      case 2:
+      //defense
+          setLights(0x9dff00);
+          break;
+      case 3:
+      //skills
+          setLights(0x9500ff);
+          auton = 0;
+          break;
+  }
+}
+void autonLightsUp() {
+  ez::as::page_up();
+  auton = auton + 1;
 
-
+  switch(auton) {
+      case 0:
+      //nothing
+          leftDriveLights.gradient(0xFF0000, 0xFF0005, 0, 0, false, true);
+          rightDriveLights.gradient(0xFF0000, 0xFF0005, 0, 0, false, true);
+          break;
+      case 1:
+      //offense
+          setLights(0x00ffe1);
+          break;
+      case 2:
+      //defense
+          setLights(0x9dff00);
+          break;
+      case 3:
+      //skills
+          setLights(0x9500ff);
+          auton = 0;
+          break;
+      case 4:
+      //overflows to nothing
+          leftDriveLights.gradient(0xFF0000, 0xFF0005, 0, 0, false, true);
+          rightDriveLights.gradient(0xFF0000, 0xFF0005, 0, 0, false, true);
+          auton = 0;
+          break;
+      
+  }
+}
 /**
  * Runs initialization code. This occurs as soon as the program is started.
  *
@@ -65,7 +125,7 @@ void initialize() {
   pros::delay(500); // Stop the user from doing anything while legacy ports configure.
 
   // Configure your chassis controls
-  chassis.toggle_modify_curve_with_controller(true); // Enables modifying the controller curve with buttons on the joysticks
+  chassis.toggle_modify_curve_with_controller(false); // Enables modifying the controller curve with buttons on the joysticks
   chassis.set_active_brake(0.03); // Sets the active brake kP. We recommend 0.1.
   chassis.set_curve_default(7, 0); // Defaults for curve. If using tank, only the first parameter is used. (Comment this line out if you have an SD card!)  
   default_constants(); // Set the drive to your own constants from autons.cpp!
@@ -75,15 +135,21 @@ void initialize() {
   // chassis.set_left_curve_buttons (pros::E_CONTROLLER_DIGITAL_LEFT, pros::E_CONTROLLER_DIGITAL_RIGHT); // If using tank, only the left side is used. 
   // chassis.set_right_curve_buttons(pros::E_CONTROLLER_DIGITAL_Y,    pros::E_CONTROLLER_DIGITAL_A);
 
-  // Autonomous Selector using LLEMU
+    // Autonomous Selector using LLEMU
   ez::as::auton_selector.add_autons({
-    Auton("offense", offense),
-    Auton("defense", defense),
+    Auton("Nothing", nothing),
+    Auton("Offense", offense),
+    Auton("Defense", defense),
+    Auton("Skills", skills),
   });
-
   // Initialize chassis and auton selector
-  chassis.initialize();
+  sylib::initialize();
   ez::as::initialize();
+  chassis.initialize();
+  pros::lcd::register_btn0_cb(autonLightsDown);
+  pros::lcd::register_btn2_cb(autonLightsUp);
+  leftDriveLights.gradient(0xFF0000, 0xFF0005, 0, 0, false, true);
+  rightDriveLights.gradient(0xFF0000, 0xFF0005, 0, 0, false, true);
 }
 
 
@@ -94,7 +160,8 @@ void initialize() {
  * the robot is enabled, this task will exit.
  */
 void disabled() {
-  // . . .
+  leftDriveLights.gradient(0xFF0000, 0xFF0005, 0, 0, false, true);
+  rightDriveLights.gradient(0xFF0000, 0xFF0005, 0, 0, false, true);
 }
 
 
@@ -109,7 +176,6 @@ void disabled() {
  * starts.
  */
 void competition_initialize() {
-  // . . .
 }
 
 
@@ -150,23 +216,24 @@ void autonomous() {
  * task, not resume it from where it left off.
  */
 void opcontrol() {
+
   // This is preference to what you like to drive on.
   chassis.set_drive_brake(MOTOR_BRAKE_HOLD);
+  setLights(0x0fdb35);
+  bool last30 = false;
+  std::uint32_t startTime = pros::millis();
   while (true) {
-
+    std::uint32_t time = pros::millis();
     chassis.tank(); // Tank control
     setCata();
     setWings();
     setLift();
-    lock();
-    // chassis.arcade_standard(ez::SPLIT); // Standard split arcade
-    // chassis.arcade_standard(ez::SINGLE); // Standard single arcade
-    // chassis.arcade_flipped(ez::SPLIT); // Flipped split arcade
-    // chassis.arcade_flipped(ez::SINGLE); // Flipped single arcade
-
-    // . . .
-    // Put more user control code here!
-    // . . .
+    if (time-startTime >= 75000 && last30 != true) {
+      leftDriveLights.gradient(0xFF0000, 0xFF0005, 0, 0, false, true);
+      rightDriveLights.gradient(0xFF0000, 0xFF0005, 0, 0, false, true);
+      controller.rumble(". . . . .");
+      last30 = true;
+    }
 
     pros::delay(ez::util::DELAY_TIME); // This is used for timer calculations!  Keep this ez::util::DELAY_TIME
   }

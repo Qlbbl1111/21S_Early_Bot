@@ -4,8 +4,11 @@
 
 extern Drive chassis;
 
+void nothing();
 void offense();
 void defense();
+void skills();
+
 
 void default_constants();
 void one_mogo_constants();

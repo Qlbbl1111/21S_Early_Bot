@@ -43,6 +43,7 @@
 //#include "pros/api_legacy.h"
 #include "EZ-Template/api.hpp"
 #include "autons.hpp"
+#include "sylib/sylib.hpp"
 
 // More includes here...
 //
@@ -82,6 +83,7 @@ void opcontrol(void);
 #include "subsystemHeaders/cata.hpp"
 #include "subsystemHeaders/wings.hpp"
 #include "subsystemHeaders/lift.hpp"
+#include "subsystemHeaders/lights.hpp"
 /**
  * You can add C++-only headers here
  */

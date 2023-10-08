@@ -1,3 +1,4 @@
+#include "EZ-Template/util.hpp"
 #include "main.h"
 
 
@@ -23,15 +24,6 @@ const int SWING_SPEED = 90;
 // It's best practice to tune constants when the robot is empty and with heavier game objects, or with lifts up vs down.
 // If the objects are light or the cog doesn't change much, then there isn't a concern here.
 
-void default_constants() {
-  chassis.set_slew_min_power(80, 80);
-  chassis.set_slew_distance(7, 7);
-  chassis.set_pid_constants(&chassis.headingPID, 11, 0, 20, 0);
-  chassis.set_pid_constants(&chassis.forward_drivePID, 0.45, 0, 5, 0);
-  chassis.set_pid_constants(&chassis.backward_drivePID, 0.45, 0, 5, 0);
-  chassis.set_pid_constants(&chassis.turnPID, 5, 0.003, 35, 15);
-  chassis.set_pid_constants(&chassis.swingPID, 7, 0, 45, 0);
-}
 
 void one_mogo_constants() {
   chassis.set_slew_min_power(80, 80);
@@ -65,7 +57,19 @@ void modified_exit_condition() {
   chassis.set_exit_condition(chassis.drive_exit, 80, 50, 300, 150, 500, 500);
 }
 
+void default_constants() {
+  chassis.set_slew_min_power(80, 80);
+  chassis.set_slew_distance(7, 7);
+  chassis.set_pid_constants(&chassis.headingPID, 11, 0, 20, 0);
+  chassis.set_pid_constants(&chassis.forward_drivePID, 0.75, 0, 5, 0);
+  chassis.set_pid_constants(&chassis.backward_drivePID, 0.75, 0, 5, 0);
+  chassis.set_pid_constants(&chassis.turnPID, 5, 0.003, 35, 15);
+  chassis.set_pid_constants(&chassis.swingPID, 7, 0, 45, 0);
+}
 
+void nothing(){
+  setLights(0x000000);
+}
 
 ///
 // Drive Example
@@ -100,34 +104,42 @@ void offense() {
   chassis.wait_drive();
   chassis.set_drive_pid(24, 127);
   chassis.wait_drive();
+  setLights(0x000000);
 }
-
-
 
 ///
 // Turn Example
 ///
 void defense() {
-//defense
-  setCataMotors(75);
-  pros::delay(1100);
-  setCataMotors(0);
-  chassis.set_drive_pid(4, DRIVE_SPEED);
+  //defense
+  chassis.set_drive_pid(26, DRIVE_SPEED, true);
   chassis.wait_drive();
 
-  chassis.set_turn_pid(-90, TURN_SPEED);
+  chassis.reset_gyro();
+  //wings.set_value(true);
+
+  chassis.set_turn_pid(25, TURN_SPEED);
   chassis.wait_drive();
 
-  chassis.set_drive_pid(24, DRIVE_SPEED);
+  chassis.reset_gyro();
+
+  chassis.set_drive_pid(12, 127);
+  chassis.wait_drive();
+  //wings.set_value(false);
+  chassis.reset_drive_sensor();
+
+  chassis.set_drive_pid(-5, DRIVE_SPEED);
   chassis.wait_drive();
 
-  chassis.set_turn_pid(-180 , TURN_SPEED);
+  chassis.set_drive_pid(8, 127);
   chassis.wait_drive();
 
-  chassis.set_drive_pid(8, DRIVE_SPEED);
+  chassis.reset_drive_sensor(); 
+
+  chassis.set_drive_pid(-12, DRIVE_SPEED);
   chassis.wait_drive();
 
-  chassis.set_turn_pid(-250, TURN_SPEED);
+  chassis.set_turn_pid(180, TURN_SPEED);
   chassis.wait_drive();
 
   wings.set_value(true);
@@ -135,28 +147,20 @@ void defense() {
   chassis.set_drive_pid(9, DRIVE_SPEED);
   chassis.wait_drive();
 
-  chassis.set_turn_pid(-305, TURN_SPEED);
-  chassis.wait_drive();
+  chassis.reset_gyro();
 
-  wings.set_value(false);
+  chassis.set_swing_pid(ez::RIGHT_SWING, -60, SWING_SPEED);
+  chassis.wait_drive();
   
-  pros::delay(250);
+  wings.set_value(false);
 
-  chassis.set_turn_pid(-290, TURN_SPEED);
+  chassis.set_drive_pid(38, DRIVE_SPEED);
   chassis.wait_drive();
+  setLights(0x000000);
+}
 
-  chassis.set_drive_pid(18, DRIVE_SPEED);
-  chassis.wait_drive();
+void skills() {
 
-  chassis.set_turn_pid(-300, TURN_SPEED);
-  chassis.wait_drive();
 
-  chassis.set_drive_pid(28, DRIVE_SPEED);
-  chassis.wait_drive();
-
-  //wings.set_value(true);
-  //pros::delay(250);
-
-  //chassis.set_drive_pid(2, DRIVE_SPEED);
-  //chassis.wait_drive();
+  setLights(0x000000);
 }
