@@ -17,3 +17,5 @@ extern pros::ADIDigitalOut wings;
 // LIGHTS
 extern sylib::Addrled leftDriveLights;
 extern sylib::Addrled rightDriveLights;
+extern sylib::Addrled leftWingLights;
+extern sylib::Addrled rightWingLights;

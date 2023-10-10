@@ -57,7 +57,7 @@ void autonLightsDown() {
   switch(auton) {
       case -1:
       //underflows to skills
-          setLights(0x9500ff);
+          setDriveLights(0x9500ff);
           auton = 3;
           break;
       case 0:
@@ -67,15 +67,15 @@ void autonLightsDown() {
           break;
       case 1:
       //offense
-          setLights(0x00ffe1);
+          setDriveLights(0x00ffe1);
           break;
       case 2:
       //defense
-          setLights(0x9dff00);
+          setDriveLights(0x9dff00);
           break;
       case 3:
       //skills
-          setLights(0x9500ff);
+          setDriveLights(0x9500ff);
           auton = 0;
           break;
   }
@@ -92,15 +92,15 @@ void autonLightsUp() {
           break;
       case 1:
       //offense
-          setLights(0x00ffe1);
+          setDriveLights(0x00ffe1);
           break;
       case 2:
       //defense
-          setLights(0x9dff00);
+          setDriveLights(0x9dff00);
           break;
       case 3:
       //skills
-          setLights(0x9500ff);
+          setDriveLights(0x9500ff);
           auton = 0;
           break;
       case 4:
@@ -148,6 +148,7 @@ void initialize() {
   chassis.initialize();
   pros::lcd::register_btn0_cb(autonLightsDown);
   pros::lcd::register_btn2_cb(autonLightsUp);
+  auton = 0;
   leftDriveLights.gradient(0xFF0000, 0xFF0005, 0, 0, false, true);
   rightDriveLights.gradient(0xFF0000, 0xFF0005, 0, 0, false, true);
 }
@@ -219,7 +220,7 @@ void opcontrol() {
 
   // This is preference to what you like to drive on.
   chassis.set_drive_brake(MOTOR_BRAKE_HOLD);
-  setLights(0x0fdb35);
+  setDriveLights(0x0fdb35);
   bool last30 = false;
   std::uint32_t startTime = pros::millis();
   while (true) {

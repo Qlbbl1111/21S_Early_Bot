@@ -68,7 +68,7 @@ void default_constants() {
 }
 
 void nothing(){
-  setLights(0x000000);
+  setDriveLights(0x000000);
 }
 
 ///
@@ -104,7 +104,7 @@ void offense() {
   chassis.wait_drive();
   chassis.set_drive_pid(24, 127);
   chassis.wait_drive();
-  setLights(0x000000);
+  setDriveLights(0x000000);
 }
 
 ///
@@ -156,11 +156,11 @@ void defense() {
 
   chassis.set_drive_pid(38, DRIVE_SPEED);
   chassis.wait_drive();
-  setLights(0x000000);
+  setDriveLights(0x000000);
 }
 
 void skills() {
 
 
-  setLights(0x000000);
+  setDriveLights(0x000000);
 }
