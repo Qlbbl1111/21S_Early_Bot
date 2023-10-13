@@ -12,7 +12,7 @@ pros::Imu inertial(21);
 
 // PNUEMATICS
 pros::ADIDigitalOut wings('B');
-pros::ADIDigitalOut liftLock('A');
+pros::ADIDigitalOut liftLock('E');
 
 // LIGHTS
 sylib::Addrled leftDriveLights(22,7,43);

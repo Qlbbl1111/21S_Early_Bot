@@ -223,8 +223,10 @@ void autonomous() {
 void opcontrol() {
   chassis.set_drive_brake(MOTOR_BRAKE_HOLD);
   bool last30 = false;
-  std::uint32_t startTime = pros::millis();
   setDriveLights(0x0fdb35);
+  liftLock.set_value(false);
+  wings.set_value(true);
+  std::uint32_t startTime = pros::millis();
   while (true) {
     std::uint32_t time = pros::millis();
     chassis.tank(); // Tank control
