@@ -13,6 +13,7 @@ extern pros::Imu inertial;
 
 // PNUEMATICS
 extern pros::ADIDigitalOut wings;
+extern pros::ADIDigitalOut liftLock;
 
 // LIGHTS
 extern sylib::Addrled leftDriveLights;

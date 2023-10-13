@@ -52,6 +52,7 @@ Drive chassis (
 int auton = 0;
 void autonLightsDown() {
   ez::as::page_down();
+  /**
   auton = auton -1;
 
   switch(auton) {
@@ -79,9 +80,11 @@ void autonLightsDown() {
           auton = 0;
           break;
   }
+**/
 }
 void autonLightsUp() {
   ez::as::page_up();
+  /**
   auton = auton + 1;
 
   switch(auton) {
@@ -109,8 +112,9 @@ void autonLightsUp() {
           rightDriveLights.gradient(0xFF0000, 0xFF0005, 0, 0, false, true);
           auton = 0;
           break;
-      
+    
   }
+**/ 
 }
 /**
  * Runs initialization code. This occurs as soon as the program is started.
@@ -217,24 +221,23 @@ void autonomous() {
  * task, not resume it from where it left off.
  */
 void opcontrol() {
-
-  // This is preference to what you like to drive on.
   chassis.set_drive_brake(MOTOR_BRAKE_HOLD);
-  setDriveLights(0x0fdb35);
   bool last30 = false;
   std::uint32_t startTime = pros::millis();
+  setDriveLights(0x0fdb35);
   while (true) {
     std::uint32_t time = pros::millis();
     chassis.tank(); // Tank control
     setCata();
     setWings();
     setLift();
+    setLock();
     if (time-startTime >= 75000 && last30 != true) {
       leftDriveLights.gradient(0xFF0000, 0xFF0005, 0, 0, false, true);
       rightDriveLights.gradient(0xFF0000, 0xFF0005, 0, 0, false, true);
       controller.rumble(". . . . .");
       last30 = true;
-    }
+    } 
 
     pros::delay(ez::util::DELAY_TIME); // This is used for timer calculations!  Keep this ez::util::DELAY_TIME
   }
