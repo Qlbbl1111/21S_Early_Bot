@@ -15,7 +15,7 @@ pros::ADIDigitalOut wings('B');
 pros::ADIDigitalOut liftLock('E');
 
 // LIGHTS
-sylib::Addrled leftDriveLights(22,7,43);
+sylib::Addrled leftDriveLights(22,6,43);
 sylib::Addrled rightDriveLights(22,8,43);
 sylib::Addrled leftWingLights(22,3,20);
-sylib::Addrled rightWingLights(22,4,21);
+sylib::Addrled rightWingLights(22,4,20);

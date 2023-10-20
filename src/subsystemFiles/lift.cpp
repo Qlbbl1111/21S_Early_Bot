@@ -22,6 +22,8 @@ void setLock() {
     rightDriveLights.gradient(0x03fcfc, 0xfc03ec, 0, 0, false, true);
   } else {
     liftLock.set_value(true);
+      leftDriveLights.gradient(0xFF0000, 0xFF0005, 0, 0, false, true);
+      rightDriveLights.gradient(0xFF0000, 0xFF0005, 0, 0, false, true);
   }
 
   if (lockButton.isPressed()) {

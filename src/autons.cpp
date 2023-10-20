@@ -66,31 +66,34 @@ void default_constants() {
   chassis.set_pid_constants(&chassis.turnPID, 5, 0.003, 35, 15);
   chassis.set_pid_constants(&chassis.swingPID, 7, 0, 45, 0);
 }
+////////////////////////////////////////////////////////////////////////////////
+//Autons
+////////////////////////////////////////////////////////////////////////////////
 
 void nothing(){
   setDriveLights(0x000000);
 }
 
-///
-// Drive Example
-///
+
 void offense() {
   //offense
-  chassis.set_drive_pid(4, DRIVE_SPEED);
+  setDriveLights(0x00fff2);
+
+  chassis.set_drive_pid(4, DRIVE_SPEED); //drive to bar
   chassis.wait_drive();
-  chassis.set_turn_pid(8, TURN_SPEED);
+  chassis.set_turn_pid(8, TURN_SPEED); //turn to bar
   chassis.wait_drive();
 
   wings.set_value(true);
-  chassis.set_drive_pid(22, DRIVE_SPEED);
+  chassis.set_drive_pid(12, 80); //knock ball out
   chassis.wait_drive();
 
-  chassis.set_turn_pid(-40, TURN_SPEED);
+  chassis.set_turn_pid(-40, 40); //turn to goal
   chassis.wait_drive();
 
-  wings.set_value(false);
   pros::delay(500);
-
+  wings.set_value(false);
+  //align with goal
   chassis.set_drive_pid(-3, DRIVE_SPEED);
   chassis.wait_drive();
 
@@ -100,22 +103,46 @@ void offense() {
   chassis.set_drive_pid(2, DRIVE_SPEED);
   chassis.wait_drive();
 
-  chassis.set_turn_pid(-30, TURN_SPEED);
+  chassis.set_turn_pid(-25, TURN_SPEED);
   chassis.wait_drive();
-  chassis.set_drive_pid(24, 127);
+
+  //score balls
+  chassis.set_drive_pid(22, 127);
+  chassis.wait_drive();
+
+  chassis.set_drive_pid(-5, DRIVE_SPEED);
+  chassis.wait_drive();
+
+  chassis.set_drive_pid(10, 127);
+  chassis.wait_drive();
+  chassis.reset_gyro();
+
+  chassis.set_drive_pid(-12, DRIVE_SPEED);
+  chassis.wait_drive();
+
+  chassis.set_turn_pid(-95, TURN_SPEED);
+  chassis.wait_drive();
+
+  chassis.set_drive_pid(36, DRIVE_SPEED);
+  chassis.wait_drive();
+
+  wings.set_value(true);
+  chassis.set_drive_pid(12, DRIVE_SPEED);
+  chassis.wait_drive();
+
+  chassis.set_turn_pid(-83, TURN_SPEED);
+  chassis.wait_drive();
+
+  chassis.set_drive_pid(7, DRIVE_SPEED);
   chassis.wait_drive();
   setDriveLights(0x000000);
 }
 
-///
-// Turn Example
-///
 void defense() {
   //defense
+  setDriveLights(0xffb700);
   chassis.set_drive_pid(26, DRIVE_SPEED, true);
   chassis.wait_drive();
-
-  chassis.reset_gyro();
   //wings.set_value(true);
 
   chassis.set_turn_pid(25, TURN_SPEED);
@@ -136,7 +163,7 @@ void defense() {
 
   chassis.reset_drive_sensor(); 
 
-  chassis.set_drive_pid(-12, DRIVE_SPEED);
+  chassis.set_drive_pid(-10, DRIVE_SPEED);
   chassis.wait_drive();
 
   chassis.set_turn_pid(180, TURN_SPEED);
@@ -154,13 +181,10 @@ void defense() {
   
   wings.set_value(false);
 
-  chassis.set_drive_pid(38, DRIVE_SPEED);
+  chassis.set_turn_pid(-51, TURN_SPEED);
   chassis.wait_drive();
-  setDriveLights(0x000000);
-}
 
-void skills() {
-
-
+  chassis.set_drive_pid(40, DRIVE_SPEED);
+  chassis.wait_drive();
   setDriveLights(0x000000);
 }

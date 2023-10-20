@@ -143,8 +143,7 @@ void initialize() {
   ez::as::auton_selector.add_autons({
     Auton("Nothing", nothing),
     Auton("Offense", offense),
-    Auton("Defense", defense),
-    Auton("Skills", skills),
+    Auton("Defense", defense)
   });
   // Initialize chassis and auton selector
   sylib::initialize();
