@@ -84,7 +84,7 @@ void offense() {
   chassis.set_turn_pid(8, TURN_SPEED); //turn to bar
   chassis.wait_drive();
 
-  wings.set_value(true);
+  wingsOn();
   chassis.set_drive_pid(12, 80); //knock ball out
   chassis.wait_drive();
 
@@ -92,7 +92,7 @@ void offense() {
   chassis.wait_drive();
 
   pros::delay(500);
-  wings.set_value(false);
+  wingsOff();
   //align with goal
   chassis.set_drive_pid(-3, DRIVE_SPEED);
   chassis.wait_drive();
@@ -126,7 +126,7 @@ void offense() {
   chassis.set_drive_pid(36, DRIVE_SPEED);
   chassis.wait_drive();
 
-  wings.set_value(true);
+  wingsOn();
   chassis.set_drive_pid(12, DRIVE_SPEED);
   chassis.wait_drive();
 
@@ -169,7 +169,7 @@ void defense() {
   chassis.set_turn_pid(180, TURN_SPEED);
   chassis.wait_drive();
 
-  wings.set_value(true);
+  wingsOn();
 
   chassis.set_drive_pid(9, DRIVE_SPEED);
   chassis.wait_drive();
@@ -179,7 +179,7 @@ void defense() {
   chassis.set_swing_pid(ez::RIGHT_SWING, -60, SWING_SPEED);
   chassis.wait_drive();
   
-  wings.set_value(false);
+  wingsOff();
 
   chassis.set_turn_pid(-51, TURN_SPEED);
   chassis.wait_drive();
